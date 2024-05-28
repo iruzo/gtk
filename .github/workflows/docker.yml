@@ -24,4 +24,4 @@ jobs:
           sh docker/build.sh -v no
 
           # push the image to the registry
-          sh docker/push.sh -u "${{ github.actor }}" -p  "${{ secrets.GITHUB_TOKEN }}"
+          sh docker/push.sh -u "${{ github.actor }}" -p "${{ secrets.GITHUB_TOKEN }}"
