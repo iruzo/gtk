@@ -1,0 +1,582 @@
+---
+whiskers:
+  version: 2.1.0
+  matrix:
+    - flavor
+    - accent: ["rosewater", "flamingo", "pink", "mauve", "red", "maroon", "peach", "yellow", "green", "teal", "sky", "sapphire", "blue", "lavender"]
+  filename: "themes/catppuccin-{{ flavor.identifier }}-{{ accent }}/gnome-shell/gnome-shell.css"
+---
+/*
+ * Catppuccin GNOME Shell Theme - {{ flavor.name }} {{ accent | title }}
+ * Based on Adwaita GNOME Shell theme
+ * Generated with Whiskers - do not edit manually
+ */
+
+{%- set palette = flavor.colors -%}
+
+/* ===================================================================
+ * Color definitions
+ * ===================================================================*/
+
+stage {
+  font-family: "Cantarell", sans-serif;
+  font-size: 11pt;
+  color: #{{ palette.text.hex }};
+}
+
+/* ===================================================================
+ * Top Panel
+ * ===================================================================*/
+
+#panel {
+  background-color: #{{ palette.crust.hex }};
+  border-bottom: 1px solid #{{ palette.surface0.hex }};
+  font-weight: bold;
+  height: 2.2em;
+  font-feature-settings: "tnum";
+}
+
+#panelLeft, #panelCenter, #panelRight {
+  spacing: 4px;
+}
+
+.panel-button {
+  -natural-hpadding: 12px;
+  -minimum-hpadding: 6px;
+  font-weight: bold;
+  color: #{{ palette.text.hex }};
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  transition-duration: 100ms;
+}
+
+.panel-button:hover {
+  background-color: #{{ palette.surface0.hex }};
+}
+
+.panel-button:active,
+.panel-button:focus,
+.panel-button:checked {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.panel-button .app-menu-icon {
+  -st-icon-style: symbolic;
+}
+
+.panel-status-indicators-box {
+  spacing: 4px;
+}
+
+.panel-status-button {
+  color: #{{ palette.text.hex }};
+}
+
+/* ===================================================================
+ * Overview
+ * ===================================================================*/
+
+#overview {
+  background-color: #{{ palette.base.hex }};
+}
+
+.overview-icon {
+  color: #{{ palette.text.hex }};
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  transition-duration: 100ms;
+}
+
+.overview-icon:hover {
+  background-color: #{{ palette.surface0.hex }};
+}
+
+.overview-icon:active,
+.overview-icon:focus,
+.overview-icon:selected {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+}
+
+.icon-grid {
+  spacing: 30px;
+  -shell-grid-horizontal-item-size: 136px;
+  -shell-grid-vertical-item-size: 136px;
+}
+
+/* ===================================================================
+ * Search
+ * ===================================================================*/
+
+.search-section {
+  background-color: #{{ palette.base.hex }};
+}
+
+#searchEntry {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition-duration: 100ms;
+}
+
+#searchEntry:focus {
+  border-color: #{{ palette[accent].hex }};
+  box-shadow: 0 0 0 2px rgba({{ palette[accent].rgb.r }}, {{ palette[accent].rgb.g }}, {{ palette[accent].rgb.b }}, 0.2);
+}
+
+#searchEntry:hover {
+  border-color: #{{ palette.surface2.hex }};
+}
+
+/* ===================================================================
+ * Calendar and Date Menu
+ * ===================================================================*/
+
+.calendar {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.calendar-month-label {
+  color: #{{ palette.text.hex }};
+  font-weight: bold;
+  font-size: 12pt;
+  padding: 8px 0;
+}
+
+.calendar-change-month-back,
+.calendar-change-month-forward {
+  color: #{{ palette.text.hex }};
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+  transition-duration: 100ms;
+}
+
+.calendar-change-month-back:hover,
+.calendar-change-month-forward:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.calendar-day-base {
+  color: #{{ palette.text.hex }};
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+  text-align: center;
+  font-size: 10pt;
+  transition-duration: 100ms;
+}
+
+.calendar-day-base:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.calendar-day-base:active,
+.calendar-day-base:focus,
+.calendar-day-base:selected {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+}
+
+.calendar-day-heading {
+  color: #{{ palette.subtext1.hex }};
+  font-weight: bold;
+  font-size: 9pt;
+  padding: 4px;
+  text-align: center;
+}
+
+.calendar-today {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.calendar-other-month-day {
+  color: #{{ palette.subtext0.hex }};
+}
+
+/* ===================================================================
+ * Popup Menus
+ * ===================================================================*/
+
+.popup-menu {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-menu-item {
+  color: #{{ palette.text.hex }};
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition-duration: 100ms;
+  spacing: 12px;
+}
+
+.popup-menu-item:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.popup-menu-item:active,
+.popup-menu-item:focus {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+}
+
+.popup-menu-item:insensitive {
+  color: #{{ palette.subtext0.hex }};
+}
+
+.popup-sub-menu {
+  background-color: #{{ palette.surface1.hex }};
+  border: 1px solid #{{ palette.surface2.hex }};
+  border-radius: 4px;
+}
+
+.popup-menu-boxpointer {
+  -arrow-border-radius: 4px;
+  -arrow-background-color: #{{ palette.surface0.hex }};
+  -arrow-border-color: #{{ palette.surface1.hex }};
+  -arrow-border-width: 1px;
+  -arrow-base: 24px;
+  -arrow-rise: 12px;
+}
+
+/* ===================================================================
+ * Notifications and Messages
+ * ===================================================================*/
+
+.message-list {
+  background-color: #{{ palette.base.hex }};
+  color: #{{ palette.text.hex }};
+  padding: 8px;
+}
+
+.message {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition-duration: 100ms;
+}
+
+.message:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.message-icon-bin {
+  padding: 0 8px 0 0;
+}
+
+.message-title {
+  color: #{{ palette.text.hex }};
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.message-body {
+  color: #{{ palette.subtext1.hex }};
+  font-size: 10pt;
+}
+
+/* ===================================================================
+ * Workspace Switcher
+ * ===================================================================*/
+
+.workspace-switcher {
+  background-color: #{{ palette.surface0.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.workspace-button {
+  background-color: #{{ palette.surface1.hex }};
+  border: 1px solid #{{ palette.surface2.hex }};
+  border-radius: 4px;
+  padding: 4px;
+  margin: 2px;
+  transition-duration: 100ms;
+}
+
+.workspace-button:hover {
+  background-color: #{{ palette.surface2.hex }};
+}
+
+.workspace-button:active,
+.workspace-button:focus {
+  background-color: #{{ palette[accent].hex }};
+  border-color: #{{ palette[accent].hex }};
+}
+
+/* ===================================================================
+ * Modal Dialogs
+ * ===================================================================*/
+
+.modal-dialog {
+  background-color: #{{ palette.base.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.modal-dialog-content-box {
+  spacing: 16px;
+}
+
+.modal-dialog-button-box {
+  spacing: 8px;
+  padding-top: 16px;
+}
+
+.modal-dialog-button {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  transition-duration: 100ms;
+}
+
+.modal-dialog-button:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.modal-dialog-button:active,
+.modal-dialog-button:focus {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+  border-color: #{{ palette[accent].hex }};
+}
+
+.modal-dialog-button:default {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+  border-color: #{{ palette[accent].hex }};
+}
+
+.modal-dialog-button:default:hover {
+  background-color: #{{ palette[accent].hex }}cc;
+}
+
+/* ===================================================================
+ * Window Management
+ * ===================================================================*/
+
+.window-caption {
+  color: #{{ palette.text.hex }};
+  background-color: #{{ palette.surface0.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 8px 8px 0 0;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+.window-close {
+  background-color: #{{ palette.red.hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  transition-duration: 100ms;
+}
+
+.window-close:hover {
+  background-color: #{{ palette.red.hex }}cc;
+}
+
+/* ===================================================================
+ * System Elements
+ * ===================================================================*/
+
+.login-dialog {
+  background-color: #{{ palette.base.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.end-session-dialog {
+  background-color: #{{ palette.base.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.mount-question-dialog {
+  background-color: #{{ palette.base.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 12px;
+  padding: 24px;
+}
+
+/* ===================================================================
+ * Buttons and Controls
+ * ===================================================================*/
+
+.button {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  transition-duration: 100ms;
+}
+
+.button:hover {
+  background-color: #{{ palette.surface1.hex }};
+}
+
+.button:active,
+.button:focus {
+  background-color: #{{ palette[accent].hex }};
+  color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+  border-color: #{{ palette[accent].hex }};
+}
+
+.button:insensitive {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.subtext0.hex }};
+  border-color: #{{ palette.surface1.hex }};
+}
+
+/* ===================================================================
+ * Scrollbars
+ * ===================================================================*/
+
+StScrollBar {
+  background-color: transparent;
+}
+
+StScrollView.vfade {
+  -st-vfade-offset: 32px;
+}
+
+StScrollView.hfade {
+  -st-hfade-offset: 32px;
+}
+
+StScrollBar StButton#vhandle,
+StScrollBar StButton#hhandle {
+  background-color: #{{ palette.surface2.hex }};
+  border: none;
+  border-radius: 4px;
+  transition-duration: 100ms;
+}
+
+StScrollBar StButton#vhandle:hover,
+StScrollBar StButton#hhandle:hover {
+  background-color: #{{ palette.subtext0.hex }};
+}
+
+/* ===================================================================
+ * Entries and Text Fields
+ * ===================================================================*/
+
+StEntry {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.text.hex }};
+  border: 1px solid #{{ palette.surface1.hex }};
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition-duration: 100ms;
+}
+
+StEntry:focus {
+  border-color: #{{ palette[accent].hex }};
+  box-shadow: 0 0 0 2px rgba({{ palette[accent].rgb.r }}, {{ palette[accent].rgb.g }}, {{ palette[accent].rgb.b }}, 0.2);
+}
+
+StEntry:hover {
+  border-color: #{{ palette.surface2.hex }};
+}
+
+StEntry:insensitive {
+  background-color: #{{ palette.surface0.hex }};
+  color: #{{ palette.subtext0.hex }};
+  border-color: #{{ palette.surface1.hex }};
+}
+
+/* ===================================================================
+ * Switches and Toggles
+ * ===================================================================*/
+
+.toggle-switch {
+  background-color: #{{ palette.surface1.hex }};
+  border: 1px solid #{{ palette.surface2.hex }};
+  border-radius: 12px;
+  width: 48px;
+  height: 24px;
+  transition-duration: 100ms;
+}
+
+.toggle-switch:checked {
+  background-color: #{{ palette[accent].hex }};
+  border-color: #{{ palette[accent].hex }};
+}
+
+.toggle-switch-handle {
+  background-color: #{{ palette.text.hex }};
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  transition-duration: 100ms;
+}
+
+.toggle-switch:checked .toggle-switch-handle {
+  background-color: {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+}
+
+/* ===================================================================
+ * Sliders
+ * ===================================================================*/
+
+.slider {
+  -slider-height: 4px;
+  -slider-background-color: #{{ palette.surface1.hex }};
+  -slider-border-color: #{{ palette.surface2.hex }};
+  -slider-active-background-color: #{{ palette[accent].hex }};
+  -slider-active-border-color: #{{ palette[accent].hex }};
+  -slider-handle-radius: 8px;
+  -slider-handle-border-width: 2px;
+  -slider-handle-border-color: #{{ palette[accent].hex }};
+  background-color: #{{ palette.surface0.hex }};
+  border: none;
+  border-radius: 12px;
+  height: 24px;
+}
+
+.slider:focus {
+  box-shadow: 0 0 0 2px rgba({{ palette[accent].rgb.r }}, {{ palette[accent].rgb.g }}, {{ palette[accent].rgb.b }}, 0.2);
+}

@@ -1,0 +1,468 @@
+---
+whiskers:
+  version: 2.1.0
+  matrix:
+    - flavor
+    - accent: ["rosewater", "flamingo", "pink", "mauve", "red", "maroon", "peach", "yellow", "green", "teal", "sky", "sapphire", "blue", "lavender"]
+  filename: "themes/catppuccin-{{ flavor.identifier }}-{{ accent }}/gtk-3.0/gtk.css"
+---
+/*
+ * Catppuccin GTK3 Theme - {{ flavor.name }} {{ accent | title }}
+ * Based on Adwaita GTK theme
+ * Generated with Whiskers - do not edit manually
+ */
+
+{%- set palette = flavor.colors -%}
+{%- set latte = flavors.latte.colors -%}
+{%- set mocha = flavors.mocha.colors -%}
+
+/* Color definitions */
+@define-color window_bg_color #{{ palette.base.hex }};
+@define-color window_fg_color #{{ palette.text.hex }};
+@define-color view_bg_color #{{ palette.base.hex }};
+@define-color view_fg_color #{{ palette.text.hex }};
+@define-color headerbar_bg_color #{{ palette.mantle.hex }};
+@define-color headerbar_fg_color #{{ palette.text.hex }};
+@define-color headerbar_border_color #{{ palette.surface0.hex }};
+@define-color sidebar_bg_color #{{ palette.mantle.hex }};
+@define-color sidebar_fg_color #{{ palette.text.hex }};
+@define-color sidebar_border_color #{{ palette.surface0.hex }};
+@define-color card_bg_color #{{ palette.surface0.hex }};
+@define-color card_fg_color #{{ palette.text.hex }};
+@define-color card_shade_color #{{ palette.surface1.hex }};
+@define-color popover_bg_color #{{ palette.surface0.hex }};
+@define-color popover_fg_color #{{ palette.text.hex }};
+@define-color popover_shade_color #{{ palette.surface1.hex }};
+@define-color dialog_bg_color #{{ palette.base.hex }};
+@define-color dialog_fg_color #{{ palette.text.hex }};
+@define-color accent_bg_color #{{ palette[accent].hex }};
+@define-color accent_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color accent_color #{{ palette[accent].hex }};
+@define-color destructive_bg_color #{{ palette.red.hex }};
+@define-color destructive_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color destructive_color #{{ palette.red.hex }};
+@define-color success_bg_color #{{ palette.green.hex }};
+@define-color success_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color success_color #{{ palette.green.hex }};
+@define-color warning_bg_color #{{ palette.yellow.hex }};
+@define-color warning_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color warning_color #{{ palette.yellow.hex }};
+@define-color error_bg_color #{{ palette.red.hex }};
+@define-color error_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color error_color #{{ palette.red.hex }};
+@define-color outline_color #{{ palette.surface2.hex }};
+@define-color scrollbar_outline_color #{{ palette.surface1.hex }};
+@define-color shade_color #{{ palette.surface1.hex }};
+@define-color borders #{{ palette.surface0.hex }};
+
+/* Legacy GTK3 color definitions for compatibility */
+@define-color theme_bg_color #{{ palette.base.hex }};
+@define-color theme_fg_color #{{ palette.text.hex }};
+@define-color theme_base_color #{{ palette.base.hex }};
+@define-color theme_text_color #{{ palette.text.hex }};
+@define-color theme_selected_bg_color #{{ palette[accent].hex }};
+@define-color theme_selected_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color theme_tooltip_bg_color #{{ palette.surface0.hex }};
+@define-color theme_tooltip_fg_color #{{ palette.text.hex }};
+@define-color insensitive_bg_color #{{ palette.surface0.hex }};
+@define-color insensitive_fg_color #{{ palette.subtext0.hex }};
+@define-color insensitive_border_color #{{ palette.surface1.hex }};
+@define-color focus_border_color #{{ palette[accent].hex }};
+@define-color hover_color #{{ palette.surface1.hex }};
+@define-color active_color #{{ palette.surface2.hex }};
+
+/* Auto-switching color scheme support */
+{% if flavor.identifier == "latte" %}
+/* Latte theme: Use Mocha colors in dark mode */
+@media (prefers-color-scheme: dark) {
+  @define-color window_bg_color #{{ mocha.base.hex }};
+  @define-color window_fg_color #{{ mocha.text.hex }};
+  @define-color headerbar_bg_color #{{ mocha.mantle.hex }};
+  @define-color headerbar_fg_color #{{ mocha.text.hex }};
+  @define-color accent_bg_color #{{ mocha[accent].hex }};
+  @define-color accent_fg_color #{{ mocha.crust.hex }};
+  @define-color accent_color #{{ mocha[accent].hex }};
+}
+{% else %}
+/* Dark themes: Use Latte colors in light mode */
+@media (prefers-color-scheme: light) {
+  @define-color window_bg_color #{{ latte.base.hex }};
+  @define-color window_fg_color #{{ latte.text.hex }};
+  @define-color headerbar_bg_color #{{ latte.mantle.hex }};
+  @define-color headerbar_fg_color #{{ latte.text.hex }};
+  @define-color accent_bg_color #{{ latte[accent].hex }};
+  @define-color accent_fg_color #{{ latte.base.hex }};
+  @define-color accent_color #{{ latte[accent].hex }};
+}
+{% endif %}
+
+/* Window styling */
+window {
+    background-color: @window_bg_color;
+    color: @window_fg_color;
+}
+
+/* Header bar styling */
+headerbar {
+    background-color: @headerbar_bg_color;
+    color: @headerbar_fg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
+}
+
+headerbar:backdrop {
+    background-color: mix(@headerbar_bg_color, @window_bg_color, 0.8);
+    color: mix(@headerbar_fg_color, @window_fg_color, 0.8);
+}
+
+headerbar .title {
+    color: @headerbar_fg_color;
+    font-weight: bold;
+}
+
+headerbar .subtitle {
+    color: mix(@headerbar_fg_color, @headerbar_bg_color, 0.8);
+    font-size: smaller;
+}
+
+/* Button styling */
+button {
+    background-color: @card_bg_color;
+    color: @card_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: all 200ms ease;
+}
+
+button:hover {
+    background-color: @hover_color;
+    border-color: @focus_border_color;
+}
+
+button:active {
+    background-color: @active_color;
+    border-color: @focus_border_color;
+}
+
+button:focus {
+    border-color: @focus_border_color;
+    box-shadow: 0 0 0 2px alpha(@focus_border_color, 0.3);
+}
+
+button.suggested-action {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+    border-color: @accent_color;
+}
+
+button.suggested-action:hover {
+    background-color: mix(@accent_bg_color, white, 0.9);
+}
+
+button.destructive-action {
+    background-color: @destructive_bg_color;
+    color: @destructive_fg_color;
+    border-color: @destructive_color;
+}
+
+button.destructive-action:hover {
+    background-color: mix(@destructive_bg_color, white, 0.9);
+}
+
+/* Entry styling */
+entry {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 6px;
+    padding: 8px 12px;
+    transition: all 200ms ease;
+}
+
+entry:focus {
+    border-color: @focus_border_color;
+    box-shadow: 0 0 0 2px alpha(@focus_border_color, 0.3);
+}
+
+entry:disabled {
+    background-color: @insensitive_bg_color;
+    color: @insensitive_fg_color;
+    border-color: @insensitive_border_color;
+}
+
+/* Sidebar styling */
+sidebar {
+    background-color: @sidebar_bg_color;
+    color: @sidebar_fg_color;
+    border-right: 1px solid @sidebar_border_color;
+}
+
+sidebar row {
+    padding: 8px 12px;
+}
+
+sidebar row:hover {
+    background-color: @hover_color;
+}
+
+sidebar row:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* List styling */
+list {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 6px;
+}
+
+list row {
+    padding: 8px 12px;
+    border-bottom: 1px solid alpha(@outline_color, 0.5);
+}
+
+list row:last-child {
+    border-bottom: none;
+}
+
+list row:hover {
+    background-color: @hover_color;
+}
+
+list row:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Popover styling */
+popover {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+popover > contents {
+    padding: 8px;
+}
+
+/* Menu styling */
+menu {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 6px;
+    padding: 4px 0;
+}
+
+menuitem {
+    padding: 8px 12px;
+    transition: all 200ms ease;
+}
+
+menuitem:hover {
+    background-color: @hover_color;
+}
+
+menuitem:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Scrollbar styling */
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: @shade_color;
+    border-radius: 6px;
+    margin: 2px;
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: @active_color;
+}
+
+scrollbar slider:active {
+    background-color: @accent_color;
+}
+
+/* Switch styling */
+switch {
+    background-color: @outline_color;
+    border-radius: 12px;
+    min-width: 44px;
+    min-height: 24px;
+}
+
+switch:checked {
+    background-color: @accent_color;
+}
+
+switch slider {
+    background-color: @window_bg_color;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+/* Check and radio styling */
+check,
+radio {
+    background-color: @view_bg_color;
+    border: 1px solid @outline_color;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+check {
+    border-radius: 3px;
+}
+
+radio {
+    border-radius: 50%;
+}
+
+check:checked,
+radio:checked {
+    background-color: @accent_color;
+    border-color: @accent_color;
+    color: @accent_fg_color;
+}
+
+/* Progress bar styling */
+progressbar {
+    background-color: @outline_color;
+    border-radius: 6px;
+}
+
+progressbar progress {
+    background-color: @accent_color;
+    border-radius: 6px;
+}
+
+/* Scale styling */
+scale {
+    min-height: 20px;
+}
+
+scale trough {
+    background-color: @outline_color;
+    border-radius: 6px;
+}
+
+scale highlight {
+    background-color: @accent_color;
+    border-radius: 6px;
+}
+
+scale slider {
+    background-color: @accent_color;
+    border-radius: 50%;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+/* Notebook styling */
+notebook {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+}
+
+notebook header {
+    background-color: @headerbar_bg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+}
+
+notebook tab {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px 6px 0 0;
+}
+
+notebook tab:hover {
+    background-color: @hover_color;
+}
+
+notebook tab:checked {
+    background-color: @view_bg_color;
+    border-color: @outline_color;
+    border-bottom-color: @view_bg_color;
+}
+
+/* Tooltip styling */
+tooltip {
+    background-color: @theme_tooltip_bg_color;
+    color: @theme_tooltip_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 6px;
+    padding: 6px 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Infobar styling */
+infobar {
+    border: none;
+    border-radius: 0;
+    padding: 8px 12px;
+}
+
+infobar.info {
+    background-color: alpha(@accent_color, 0.2);
+    color: @accent_color;
+}
+
+infobar.warning {
+    background-color: alpha(@warning_color, 0.2);
+    color: @warning_color;
+}
+
+infobar.error {
+    background-color: alpha(@error_color, 0.2);
+    color: @error_color;
+}
+
+infobar.success {
+    background-color: alpha(@success_color, 0.2);
+    color: @success_color;
+}
+
+/* Spinner styling */
+spinner {
+    color: @accent_color;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Selection styling */
+selection {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Text selection */
+*:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Backdrop state */
+window:backdrop {
+    opacity: 0.9;
+}
+
+/* Disabled state */
+*:disabled {
+    opacity: 0.5;
+}

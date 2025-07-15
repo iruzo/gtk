@@ -1,0 +1,590 @@
+---
+whiskers:
+  version: 2.1.0
+  matrix:
+    - flavor
+    - accent: ["rosewater", "flamingo", "pink", "mauve", "red", "maroon", "peach", "yellow", "green", "teal", "sky", "sapphire", "blue", "lavender"]
+  filename: "themes/catppuccin-{{ flavor.identifier }}-{{ accent }}/gtk-4.0/gtk.css"
+---
+/*
+ * Catppuccin GTK4 Theme - {{ flavor.name }} {{ accent | title }}
+ * Based on Adwaita GTK theme
+ * Generated with Whiskers - do not edit manually
+ */
+
+{%- set palette = flavor.colors -%}
+{%- set latte = flavors.latte.colors -%}
+{%- set mocha = flavors.mocha.colors -%}
+
+/* Default color definitions (primary flavor) */
+@define-color window_bg_color #{{ palette.base.hex }};
+@define-color window_fg_color #{{ palette.text.hex }};
+@define-color view_bg_color #{{ palette.base.hex }};
+@define-color view_fg_color #{{ palette.text.hex }};
+@define-color headerbar_bg_color #{{ palette.mantle.hex }};
+@define-color headerbar_fg_color #{{ palette.text.hex }};
+@define-color headerbar_border_color #{{ palette.surface0.hex }};
+@define-color sidebar_bg_color #{{ palette.mantle.hex }};
+@define-color sidebar_fg_color #{{ palette.text.hex }};
+@define-color sidebar_border_color #{{ palette.surface0.hex }};
+@define-color card_bg_color #{{ palette.surface0.hex }};
+@define-color card_fg_color #{{ palette.text.hex }};
+@define-color card_shade_color #{{ palette.surface1.hex }};
+@define-color popover_bg_color #{{ palette.surface0.hex }};
+@define-color popover_fg_color #{{ palette.text.hex }};
+@define-color popover_shade_color #{{ palette.surface1.hex }};
+@define-color dialog_bg_color #{{ palette.base.hex }};
+@define-color dialog_fg_color #{{ palette.text.hex }};
+@define-color accent_bg_color #{{ palette[accent].hex }};
+@define-color accent_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color accent_color #{{ palette[accent].hex }};
+@define-color destructive_bg_color #{{ palette.red.hex }};
+@define-color destructive_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color destructive_color #{{ palette.red.hex }};
+@define-color success_bg_color #{{ palette.green.hex }};
+@define-color success_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color success_color #{{ palette.green.hex }};
+@define-color warning_bg_color #{{ palette.yellow.hex }};
+@define-color warning_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color warning_color #{{ palette.yellow.hex }};
+@define-color error_bg_color #{{ palette.red.hex }};
+@define-color error_fg_color {% if flavor.dark %}#{{ palette.crust.hex }}{% else %}#{{ palette.base.hex }}{% endif %};
+@define-color error_color #{{ palette.red.hex }};
+@define-color outline_color #{{ palette.surface2.hex }};
+@define-color scrollbar_outline_color #{{ palette.surface1.hex }};
+@define-color shade_color #{{ palette.surface1.hex }};
+@define-color borders #{{ palette.surface0.hex }};
+
+/* Auto-switching color scheme support */
+{% if flavor.identifier == "latte" %}
+/* Latte theme: Use Mocha colors in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --window-bg-color: #{{ mocha.base.hex }};
+    --window-fg-color: #{{ mocha.text.hex }};
+    --view-bg-color: #{{ mocha.base.hex }};
+    --view-fg-color: #{{ mocha.text.hex }};
+    --headerbar-bg-color: #{{ mocha.mantle.hex }};
+    --headerbar-fg-color: #{{ mocha.text.hex }};
+    --headerbar-border-color: #{{ mocha.surface0.hex }};
+    --accent-bg-color: #{{ mocha[accent].hex }};
+    --accent-fg-color: #{{ mocha.crust.hex }};
+    --accent-color: #{{ mocha[accent].hex }};
+  }
+}
+{% else %}
+/* Dark themes: Use Latte colors in light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    --window-bg-color: #{{ latte.base.hex }};
+    --window-fg-color: #{{ latte.text.hex }};
+    --view-bg-color: #{{ latte.base.hex }};
+    --view-fg-color: #{{ latte.text.hex }};
+    --headerbar-bg-color: #{{ latte.mantle.hex }};
+    --headerbar-fg-color: #{{ latte.text.hex }};
+    --headerbar-border-color: #{{ latte.surface0.hex }};
+    --accent-bg-color: #{{ latte[accent].hex }};
+    --accent-fg-color: #{{ latte.base.hex }};
+    --accent-color: #{{ latte[accent].hex }};
+  }
+}
+{% endif %}
+
+/* Application window styling */
+window {
+    background-color: @window_bg_color;
+    color: @window_fg_color;
+}
+
+/* Auto-switching styles */
+{% if flavor.identifier == "latte" %}
+@media (prefers-color-scheme: dark) {
+  window {
+    background-color: var(--window-bg-color);
+    color: var(--window-fg-color);
+  }
+  
+  headerbar {
+    background-color: var(--headerbar-bg-color);
+    color: var(--headerbar-fg-color);
+    border-bottom-color: var(--headerbar-border-color);
+  }
+  
+  button.suggested-action {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+    border-color: var(--accent-color);
+  }
+  
+  listview row:selected,
+  sidebar row:selected {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+  }
+}
+{% else %}
+@media (prefers-color-scheme: light) {
+  window {
+    background-color: var(--window-bg-color);
+    color: var(--window-fg-color);
+  }
+  
+  headerbar {
+    background-color: var(--headerbar-bg-color);
+    color: var(--headerbar-fg-color);
+    border-bottom-color: var(--headerbar-border-color);
+  }
+  
+  button.suggested-action {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+    border-color: var(--accent-color);
+  }
+  
+  listview row:selected,
+  sidebar row:selected {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+  }
+}
+{% endif %}
+
+/* Header bar styling */
+headerbar {
+    background-color: @headerbar_bg_color;
+    color: @headerbar_fg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
+    min-height: 44px;
+}
+
+headerbar:backdrop {
+    background-color: mix(@headerbar_bg_color, @window_bg_color, 0.8);
+    color: mix(@headerbar_fg_color, @window_fg_color, 0.8);
+}
+
+headerbar .title {
+    color: @headerbar_fg_color;
+    font-weight: bold;
+}
+
+headerbar .subtitle {
+    color: mix(@headerbar_fg_color, @headerbar_bg_color, 0.8);
+    font-size: 0.9em;
+}
+
+/* Window controls */
+windowcontrols button {
+    padding: 6px;
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+windowcontrols button.minimize {
+    background-color: @warning_color;
+}
+
+windowcontrols button.maximize {
+    background-color: @success_color;
+}
+
+windowcontrols button.close {
+    background-color: @destructive_color;
+}
+
+/* Button styling */
+button {
+    background-color: @card_bg_color;
+    color: @card_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    padding: 8px 16px;
+    min-height: 32px;
+    transition: all 200ms ease;
+}
+
+button:hover {
+    background-color: @hover_color;
+    border-color: @focus_border_color;
+}
+
+button:active {
+    background-color: @active_color;
+    border-color: @focus_border_color;
+}
+
+button:focus {
+    border-color: @focus_border_color;
+    box-shadow: 0 0 0 2px alpha(@focus_border_color, 0.3);
+}
+
+button.suggested-action {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+    border-color: @accent_color;
+}
+
+button.suggested-action:hover {
+    background-color: mix(@accent_bg_color, white, 0.9);
+}
+
+button.destructive-action {
+    background-color: @destructive_bg_color;
+    color: @destructive_fg_color;
+    border-color: @destructive_color;
+}
+
+button.destructive-action:hover {
+    background-color: mix(@destructive_bg_color, white, 0.9);
+}
+
+button.flat {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+button.flat:hover {
+    background-color: @hover_color;
+}
+
+/* Entry styling */
+entry {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-height: 32px;
+    transition: all 200ms ease;
+}
+
+entry:focus-within {
+    border-color: @focus_border_color;
+    box-shadow: 0 0 0 2px alpha(@focus_border_color, 0.3);
+}
+
+entry:disabled {
+    background-color: @insensitive_bg_color;
+    color: @insensitive_fg_color;
+    border-color: @insensitive_border_color;
+}
+
+entry placeholder {
+    color: mix(@view_fg_color, @view_bg_color, 0.6);
+}
+
+/* Navigation sidebar styling */
+flap,
+leaflet {
+    background-color: @sidebar_bg_color;
+    color: @sidebar_fg_color;
+}
+
+sidebar {
+    background-color: @sidebar_bg_color;
+    color: @sidebar_fg_color;
+    border-right: 1px solid @sidebar_border_color;
+}
+
+sidebar row {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 2px 6px;
+}
+
+sidebar row:hover {
+    background-color: @hover_color;
+}
+
+sidebar row:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* List styling */
+listview {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+}
+
+listview row {
+    padding: 8px 12px;
+    border-bottom: 1px solid alpha(@outline_color, 0.5);
+}
+
+listview row:last-child {
+    border-bottom: none;
+}
+
+listview row:hover {
+    background-color: @hover_color;
+}
+
+listview row:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Card styling */
+card {
+    background-color: @card_bg_color;
+    color: @card_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Popover styling */
+popover {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+popover > contents {
+    padding: 12px;
+}
+
+/* Menu styling */
+menu {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    padding: 8px 0;
+}
+
+menuitem {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 2px 6px;
+    transition: all 200ms ease;
+}
+
+menuitem:hover {
+    background-color: @hover_color;
+}
+
+menuitem:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Scrollbar styling */
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: @shade_color;
+    border-radius: 8px;
+    margin: 2px;
+    min-width: 12px;
+    min-height: 12px;
+}
+
+scrollbar slider:hover {
+    background-color: @active_color;
+}
+
+scrollbar slider:active {
+    background-color: @accent_color;
+}
+
+/* Switch styling */
+switch {
+    background-color: @outline_color;
+    border-radius: 16px;
+    min-width: 52px;
+    min-height: 28px;
+}
+
+switch:checked {
+    background-color: @accent_color;
+}
+
+switch slider {
+    background-color: @window_bg_color;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 24px;
+    min-height: 24px;
+    transition: all 200ms ease;
+}
+
+/* Check and radio styling */
+check,
+radio {
+    background-color: @view_bg_color;
+    border: 2px solid @outline_color;
+    min-width: 18px;
+    min-height: 18px;
+}
+
+check {
+    border-radius: 4px;
+}
+
+radio {
+    border-radius: 50%;
+}
+
+check:checked,
+radio:checked {
+    background-color: @accent_color;
+    border-color: @accent_color;
+    color: @accent_fg_color;
+}
+
+/* Progress bar styling */
+progressbar {
+    background-color: @outline_color;
+    border-radius: 8px;
+    min-height: 8px;
+}
+
+progressbar progress {
+    background-color: @accent_color;
+    border-radius: 8px;
+}
+
+/* Scale styling */
+scale {
+    min-height: 32px;
+}
+
+scale trough {
+    background-color: @outline_color;
+    border-radius: 8px;
+    min-height: 8px;
+}
+
+scale highlight {
+    background-color: @accent_color;
+    border-radius: 8px;
+}
+
+scale slider {
+    background-color: @accent_color;
+    border: 2px solid @window_bg_color;
+    border-radius: 50%;
+    min-width: 24px;
+    min-height: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Notebook styling */
+notebook {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+}
+
+notebook header {
+    background-color: @headerbar_bg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+}
+
+notebook tab {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 8px 8px 0 0;
+}
+
+notebook tab:hover {
+    background-color: @hover_color;
+}
+
+notebook tab:checked {
+    background-color: @view_bg_color;
+    border-color: @outline_color;
+    border-bottom-color: @view_bg_color;
+}
+
+/* Toast styling */
+toast {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Banner styling */
+banner {
+    background-color: @accent_color;
+    color: @accent_fg_color;
+    border: none;
+    border-radius: 0;
+    padding: 8px 16px;
+}
+
+/* Tooltip styling */
+tooltip {
+    background-color: @popover_bg_color;
+    color: @popover_fg_color;
+    border: 1px solid @outline_color;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Spinner styling */
+spinner {
+    color: @accent_color;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Selection styling */
+selection {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Text selection */
+*:selected {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* Backdrop state */
+window:backdrop {
+    opacity: 0.9;
+}
+
+/* Disabled state */
+*:disabled {
+    opacity: 0.5;
+}
+
+/* Focus ring */
+*:focus {
+    outline: 2px solid @focus_border_color;
+    outline-offset: 2px;
+}
+
+/* Accessibility high contrast support */
+@media (prefers-contrast: high) {
+    * {
+        border-width: 2px;
+    }
+    
+    button {
+        border-width: 2px;
+    }
+    
+    entry {
+        border-width: 2px;
+    }
+}

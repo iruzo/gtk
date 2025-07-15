@@ -1,17 +1,16 @@
-pkgs/
-*-temp.scss
-__pycache__
-venv/
-.venv
-bin/
-lib*/
-*.cfg
-.direnv
-build/
-*.log
-.ruff-cache
-.tmp
+/*
 
-# Releases folder
-releases
-chrome
+!LICENSE
+!README.md
+
+!.editorconfig
+!.envrc
+
+!.github
+!assets
+!legacy
+!scripts
+
+!gnome-shell.tera
+!gtk-3.0.tera
+!gtk-4.0.tera

@@ -25,9 +25,8 @@ body:
     attributes:
       label: How did you install the theme?
       options:
-        - From release (install.py)
-        - From release (manual installation)
-        - From source (build.py)
+        - From release
+        - From source
         - Nix (nixpkgs / catppuccin/nix)
         - AUR package
     validations:
